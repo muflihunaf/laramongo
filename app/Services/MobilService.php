@@ -10,10 +10,12 @@ use InvalidArgumentException;
 class MobilService
 {
     protected $mobilRepository;
+    protected $kendaraanService;
 
-    public function __construct(MobilRepository $mobil)
+    public function __construct(MobilRepository $mobil,KendaraanService $kendaraanService)
     {
         $this->mobilRepository = $mobil;
+        $this->kendaraanService = $kendaraanService;
     }
     public function getAll() : Object
     {
@@ -27,7 +29,7 @@ class MobilService
         try {
             $dataMobil = $this->mobilRepository->getById($id);
         } catch (Exception $e) {
-            throw new InvalidArgumentException("Error Data Not Found");
+            throw new InvalidArgumentException("Error Data Mobil Not Found");
 
         }
         return $dataMobil;
@@ -36,15 +38,22 @@ class MobilService
     public function store($data) : Object
     {
         $validator = Validator::make($data,[
+            'kendaraan_id' => 'required',
             'mesin' => 'required',
             'kapasitas_penumpang' => 'required',
             'tipe' => 'required',
+            'stock' => 'required',
         ]);
 
         if ($validator->fails()) {
             throw new InvalidArgumentException($validator->errors()->first());
 
         }
+
+
+
+        $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
+        $data['kendaraan'] = $kendaraan;
 
         $result = $this->mobilRepository->store($data);
         return $result;
@@ -54,16 +63,19 @@ class MobilService
     public function update($data,$id) : Object
     {
         $validator = Validator::make($data,[
+            'kendaraan_id' => 'required',
             'mesin' => 'required',
-            'tipe_suspensi' => 'required',
-            'tipe_transmisi' => 'required',
+            'kapasitas_penumpang' => 'required',
+            'tipe' => 'required',
+            'stock' => 'required',
         ]);
 
         if ($validator->fails()) {
             throw new InvalidArgumentException($validator->errors()->first());
 
         }
-
+        $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
+        $data['kendaraan'] = $kendaraan;
         $result = $this->mobilRepository->update($data,$id);
         return $result;
 

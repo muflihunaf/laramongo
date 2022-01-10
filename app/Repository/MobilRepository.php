@@ -27,6 +27,7 @@ class MobilRepository
     public function store($data) : Object
     {
         $dataBaru = new $this->mobil;
+        $dataBaru->kendaraan = $data['kendaraan'];
         $dataBaru->mesin = $data['mesin'];
         $dataBaru->kapasitas_penumpang = $data['kapasitas_penumpang'];
         $dataBaru->tipe = $data['tipe'];
@@ -38,6 +39,7 @@ class MobilRepository
     public function update($data,$id) : Object
     {
         $dataUpdate = $this->mobil::find($id);
+        $dataUpdate->kendaraan = $data['kendaraan'];
         $dataUpdate->mesin = $data['mesin'];
         $dataUpdate->kapasitas_penumpang = $data['kapasitas_penumpang'];
         $dataUpdate->tipe = $data['tipe'];

@@ -26,7 +26,7 @@ class MotorRepository
     public function store($data) : Object
     {
         $dataBaru = new $this->motor;
-        $dataBaru->kendaraan = $data['kendaraan'];
+        $dataBaru->kendaraan_id = $data['kendaraan'];
         $dataBaru->mesin = $data['mesin'];
         $dataBaru->tipe_suspensi = $data['tipe_suspensi'];
         $dataBaru->tipe_transmisi = $data['tipe_transmisi'];
@@ -39,6 +39,7 @@ class MotorRepository
     public function update($data,$id) : Object
     {
         $dataUpdate = $this->motor::find($id);
+        $dataUpdate->kendaraan = $data['kendaraan'];
         $dataUpdate->mesin = $data['mesin'];
         $dataUpdate->tipe_suspensi = $data['tipe_suspensi'];
         $dataUpdate->tipe_transmisi = $data['tipe_transmisi'];

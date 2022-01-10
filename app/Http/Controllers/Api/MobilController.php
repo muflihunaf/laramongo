@@ -35,7 +35,7 @@ class MobilController extends Controller
 
     public function store(Request $request) : Object
     {
-        $data = $request->only(['mesin','kapasitas_penumpang','tipe']);
+        $data = $request->only(['kendaraan_id','mesin','kapasitas_penumpang','tipe','stock']);
 
         $result = ['status' => 201];
 
@@ -69,7 +69,7 @@ class MobilController extends Controller
 
     public function update(Request $request, $id) : Object
     {
-        $data = $request->only(['mesin','kapasitas_penumpang','tipe']);
+        $data = $request->only(['kendaraan_id','mesin','kapasitas_penumpang','tipe','stock']);
         $result = ['status' => 200];
 
         try {

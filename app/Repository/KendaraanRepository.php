@@ -26,11 +26,10 @@ class KendaraanRepository
     public function store($data) : Object
     {
         $dataBaru = new $this->kendaraan;
-        $dataBaru->kendaraan_id = $data['kendaraan_id'];
         $dataBaru->tahun_keluaran = $data['tahun_keluaran'];
         $dataBaru->warna = $data['warna'];
         $dataBaru->harga = $data['harga'];
-        $dataBaru->stock = $data['stock'];
+
         $dataBaru->save();
         return $dataBaru->fresh();
     }

@@ -9,5 +9,5 @@ class Mobil extends Model
 {
     protected $connection = 'mongodb';
     protected $collection = 'mobil';
-    protected $fillable = ['mesin','kapasitas_penumpang','tipe'];
+    protected $fillable = ['kendaraan','mesin','kapasitas_penumpang','tipe','stock'];
 }

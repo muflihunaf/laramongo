@@ -35,7 +35,7 @@ class KendaraanController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only(['kendaraan_id','tahun_keluaran','warna','harga','stock']);
+        $data = $request->only(['tahun_keluaran','warna','harga']);
 
         $result = ['status' => 201];
 

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Repository\KendaraanRepository;
 use App\Repository\MotorRepository;
 use Exception;
 use Illuminate\Support\Facades\Validator;
@@ -13,10 +12,10 @@ class MotorService
     protected $motorRepository;
     protected $kendaraanRepository;
 
-    public function __construct(MotorRepository $motor,KendaraanRepository $kendaraanRepository)
+    public function __construct(MotorRepository $motor,KendaraanService $kendaraanService)
     {
         $this->motorRepository = $motor;
-        $this->kendaraanRepository = $kendaraanRepository;
+        $this->kendaraanService = $kendaraanService;
     }
 
     public function getAll() : Object
@@ -50,8 +49,7 @@ class MotorService
             throw new InvalidArgumentException($validator->errors()->first());
         }
 
-        $kendaraan = $this->kendaraanRepository->getById($data['kendaraan_id']);
-
+        $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
         $data['kendaraan'] = $kendaraan;
         $result = $this->motorRepository->store($data);
         return $result;
@@ -61,6 +59,7 @@ class MotorService
     public function update($data,$id) : Object
     {
         $validator = Validator::make($data,[
+            'kendaraan_id' => 'required',
             'mesin' => 'required',
             'tipe_suspensi' => 'required',
             'tipe_transmisi' => 'required',
@@ -71,7 +70,8 @@ class MotorService
             throw new InvalidArgumentException($validator->errors()->first());
 
         }
-
+        $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
+        $data['kendaraan'] = $kendaraan;
         $result = $this->motorRepository->update($data,$id);
         return $result;
 
