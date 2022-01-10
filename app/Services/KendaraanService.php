@@ -40,7 +40,7 @@ class KendaraanService
         $validator = Validator::make($data,[
             'tahun_keluaran' => 'required',
             'warna' => 'required',
-            'harga' => 'required',
+            'harga' => 'required|numeric',
 
         ]);
 

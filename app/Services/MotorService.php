@@ -42,7 +42,7 @@ class MotorService
             'mesin' => 'required',
             'tipe_suspensi' => 'required',
             'tipe_transmisi' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -63,7 +63,7 @@ class MotorService
             'mesin' => 'required',
             'tipe_suspensi' => 'required',
             'tipe_transmisi' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {

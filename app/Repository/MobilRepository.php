@@ -31,6 +31,7 @@ class MobilRepository
         $dataBaru->mesin = $data['mesin'];
         $dataBaru->kapasitas_penumpang = $data['kapasitas_penumpang'];
         $dataBaru->tipe = $data['tipe'];
+        $dataBaru->stock = $data['stock'];
         $dataBaru->save();
 
         return $dataBaru->fresh();
@@ -43,6 +44,7 @@ class MobilRepository
         $dataUpdate->mesin = $data['mesin'];
         $dataUpdate->kapasitas_penumpang = $data['kapasitas_penumpang'];
         $dataUpdate->tipe = $data['tipe'];
+        $dataUpdate->stock = $data['stock'];
         $dataUpdate->save();
 
         return $dataUpdate->fresh();

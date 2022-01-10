@@ -40,9 +40,9 @@ class MobilService
         $validator = Validator::make($data,[
             'kendaraan_id' => 'required',
             'mesin' => 'required',
-            'kapasitas_penumpang' => 'required',
+            'kapasitas_penumpang' => 'required|numeric',
             'tipe' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -65,9 +65,9 @@ class MobilService
         $validator = Validator::make($data,[
             'kendaraan_id' => 'required',
             'mesin' => 'required',
-            'kapasitas_penumpang' => 'required',
+            'kapasitas_penumpang' => 'required|numeric',
             'tipe' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
