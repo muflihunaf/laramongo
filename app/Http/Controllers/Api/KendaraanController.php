@@ -35,7 +35,20 @@ class KendaraanController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $data = $request->only(['kendaraan_id','tahun_keluaran','warna','harga','stock']);
+
+        $result = ['status' => 201];
+
+        try {
+            $result['data'] = $this->kendaraanService->store($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '422',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
     /**
@@ -60,24 +73,6 @@ class KendaraanController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kendaraan  $kendaraan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Kendaraan $kendaraan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kendaraan  $kendaraan
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Kendaraan $kendaraan)
     {
         //

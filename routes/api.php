@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/kendaraan', [KendaraanController::class, 'index']);
+Route::post('/kendaraan', [KendaraanController::class, 'store']);
 Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
 
 Route::prefix('motor')->group(function () {

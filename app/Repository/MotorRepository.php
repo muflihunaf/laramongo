@@ -26,9 +26,11 @@ class MotorRepository
     public function store($data) : Object
     {
         $dataBaru = new $this->motor;
+        $dataBaru->kendaraan = $data['kendaraan'];
         $dataBaru->mesin = $data['mesin'];
         $dataBaru->tipe_suspensi = $data['tipe_suspensi'];
         $dataBaru->tipe_transmisi = $data['tipe_transmisi'];
+        $dataBaru->stock = $data['stock'];
         $dataBaru->save();
 
         return $dataBaru->fresh();
