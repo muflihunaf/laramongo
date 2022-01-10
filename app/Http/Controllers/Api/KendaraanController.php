@@ -59,9 +59,20 @@ class KendaraanController extends Controller
      * @param  \App\Models\Kendaraan  $kendaraan
      * @return \Illuminate\Http\Response
      */
-    public function show(Kendaraan $kendaraan)
+    public function show($id)
     {
-        //
+        $result = ['status' => 200];
+        try {
+            $result['data'] = $this->kendaraanService->getById($id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result,$result['status']);
+
     }
 
     /**

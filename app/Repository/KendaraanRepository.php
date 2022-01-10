@@ -16,4 +16,10 @@ class KendaraanRepository
         $kendaraan = $this->kendaraan->get();
         return $kendaraan;
     }
+
+    public function getById($id)
+    {
+        $kendaraan = $this->kendaraan::find($id);
+        return $kendaraan;
+    }
 }

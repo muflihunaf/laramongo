@@ -20,4 +20,10 @@ class KendaraanService
 
         return $kendaraan;
     }
+
+    public function getById($id)
+    {
+        $kendaraan = $this->kendaraanRepository->getById($id);
+        return $kendaraan;
+    }
 }

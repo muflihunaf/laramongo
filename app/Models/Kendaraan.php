@@ -10,5 +10,5 @@ class Kendaraan extends Eloquent
 
     protected $connection = 'mongodb';
     protected $collection = 'Kendaraan';
-    protected $fillable = ['tahun_keluaran','warna','harga'];
+    protected $fillable = ['tahun_keluaran','warna','harga','stock'];
 }
