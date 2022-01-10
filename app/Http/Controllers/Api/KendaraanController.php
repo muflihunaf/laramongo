@@ -73,19 +73,36 @@ class KendaraanController extends Controller
 
     }
 
-    public function update(Request $request, Kendaraan $kendaraan)
+    public function update(Request $request, $id) : Object
     {
-        //
+        $data = $request->only(['tahun_keluaran','warna','harga']);
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->kendaraanService->update($data,$id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kendaraan  $kendaraan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Kendaraan $kendaraan)
+
+    public function destroy($id) : Object
     {
-        //
+        $result = ['status' => 200];
+        try {
+            $result['data'] = $this->kendaraanService->delete($id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 }

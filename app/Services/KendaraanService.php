@@ -53,4 +53,31 @@ class KendaraanService
         return $result;
 
     }
+
+    public function update($data,$id) : Object
+    {
+        $validator = Validator::make($data,[
+            'tahun_keluaran' => 'required',
+            'warna' => 'required',
+            'harga' => 'required|numeric',
+
+        ]);
+
+        if ($validator->fails()) {
+            throw new InvalidArgumentException($validator->errors()->first());
+
+        }
+        $result = $this->kendaraanRepository->update($data,$id);
+        return $result;
+
+    }
+
+    public function delete($id) : Object
+    {
+
+        $result = $this->kendaraanRepository->delete($id);
+        return $result;
+
+    }
+
 }
