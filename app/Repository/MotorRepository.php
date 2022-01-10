@@ -19,7 +19,7 @@ class MotorRepository
 
     public function getById($id) : Object
     {
-        $dataMotor = $this->motor::find($id);
+        $dataMotor = $this->motor::findOrfail($id);
         return $dataMotor;
     }
 

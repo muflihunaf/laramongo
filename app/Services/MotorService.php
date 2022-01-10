@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\MotorRepository;
+use Exception;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
 
@@ -15,20 +16,24 @@ class MotorService
         $this->motorRepository = $motor;
     }
 
-    public function getAll()
+    public function getAll() : Object
     {
         $dataMotor = $this->motorRepository->getAll();
 
         return $dataMotor;
     }
 
-    public function getById($id)
+    public function getById($id) : Object
     {
-        $dataMotor = $this->motorRepository->getById($id);
+        try {
+            $dataMotor = $this->motorRepository->getById($id);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException("Error Data Not Found");
+        }
         return $dataMotor;
     }
 
-    public function store($data)
+    public function store($data) : Object
     {
         $validator = Validator::make($data,[
             'mesin' => 'required',
@@ -46,7 +51,7 @@ class MotorService
 
     }
 
-    public function update($data,$id)
+    public function update($data,$id) : Object
     {
         $validator = Validator::make($data,[
             'mesin' => 'required',
@@ -64,7 +69,7 @@ class MotorService
 
     }
 
-    public function delete($id)
+    public function delete($id) : Object
     {
 
         $result = $this->motorRepository->delete($id);

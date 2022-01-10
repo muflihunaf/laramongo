@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 class MotorController extends Controller
 {
     protected $motorService;
+
     public function __construct(MotorService $motorService)
     {
         $this->motorService = $motorService;
     }
-    public function index()
+
+    public function index() : Object
     {
         $result = ['status' => 200];
 
@@ -31,23 +33,7 @@ class MotorController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request) : Object
     {
         $data = $request->only(['mesin','tipe_suspensi','tipe_transmisi']);
 
@@ -57,7 +43,7 @@ class MotorController extends Controller
             $result['data'] = $this->motorService->store($data);
         } catch (Exception $e) {
             $result = [
-                'status' => '500',
+                'status' => '422',
                 'error' => $e->getMessage(),
             ];
         }
@@ -65,7 +51,7 @@ class MotorController extends Controller
         return response()->json($result,$result['status']);
     }
 
-    public function show($id)
+    public function show($id) : Object
     {
         $result = ['status' => 200];
 
@@ -73,7 +59,7 @@ class MotorController extends Controller
             $result['data'] = $this->motorService->getById($id);
         } catch (Exception $e) {
             $result = [
-                'status' => '500',
+                'status' => '404',
                 'error' => $e->getMessage(),
             ];
         }
@@ -81,7 +67,7 @@ class MotorController extends Controller
         return response()->json($result,$result['status']);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) : Object
     {
         $data = $request->only(['mesin','tipe_suspensi','tipe_transmisi']);
         $result = ['status' => 200];
@@ -98,13 +84,8 @@ class MotorController extends Controller
         return response()->json($result,$result['status']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Motor  $motor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy($id) : Object
     {
         $result = ['status' => 200];
         try {

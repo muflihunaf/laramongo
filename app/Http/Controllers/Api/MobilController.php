@@ -3,84 +3,100 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Mobil;
+use App\Services\MobilService;
+use Exception;
 use Illuminate\Http\Request;
 
 class MobilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    protected $mobilService;
+
+    public function __construct(MobilService $mobilService)
     {
-        //
+        $this->mobilService = $mobilService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index() : Object
     {
-        //
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->mobilService->getAll();
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request) : Object
     {
-        //
+        $data = $request->only(['mesin','kapasitas_penumpang','tipe']);
+
+        $result = ['status' => 201];
+
+        try {
+            $result['data'] = $this->mobilService->store($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '422',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mobil  $mobil
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mobil $mobil)
+    public function show($id) : Object
     {
-        //
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->mobilService->getById($id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '404',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Mobil  $mobil
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mobil $mobil)
+    public function update(Request $request, $id) : Object
     {
-        //
+        $data = $request->only(['mesin','kapasitas_penumpang','tipe']);
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->mobilService->update($data,$id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Mobil  $mobil
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Mobil $mobil)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Mobil  $mobil
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Mobil $mobil)
+    public function destroy($id) : Object
     {
-        //
+        $result = ['status' => 200];
+        try {
+            $result['data'] = $this->mobilService->delete($id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 }
