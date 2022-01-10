@@ -3,24 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Repository\KendaraanRepository;
+use App\Services\KendaraanService;
+use Exception;
 use Illuminate\Http\Request;
 
 class KendaraanController extends Controller
 {
 
-    private $kendaraanRepository;
+    protected $kendaraanService;
 
-    public function __construct(KendaraanRepository $kendaraanRepository)
+    public function __construct(KendaraanService $kendaraanService)
     {
-        $this->kendaraanRepository = $kendaraanRepository;
+        $this->kendaraanService = $kendaraanService;
     }
 
     public function index()
     {
-        $kendaraan = $this->kendaraanRepository->getAll();
+        $result = ['status' => 200];
+        try {
+            $result['data'] = $this->kendaraanService->getAll();
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
 
-        return $kendaraan;
+        return response()->json($result,$result['status']);
     }
 
     /**

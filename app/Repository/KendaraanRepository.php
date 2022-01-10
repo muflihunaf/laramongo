@@ -6,10 +6,14 @@ use App\Models\Kendaraan;
 
 class KendaraanRepository
 {
+    protected $kendaraan;
+    public function __construct(Kendaraan $kendaraan)
+    {
+        $this->kendaraan = $kendaraan;
+    }
     public function getAll()
     {
-        $kendaraan = Kendaraan::all();
-
-        return response()->json($kendaraan, 200);
+        $kendaraan = $this->kendaraan->get();
+        return $kendaraan;
     }
 }
