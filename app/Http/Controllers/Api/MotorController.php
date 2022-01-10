@@ -3,19 +3,32 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Motor;
+use App\Services\MotorService;
+use Exception;
 use Illuminate\Http\Request;
 
 class MotorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $motorService;
+    public function __construct(MotorService $motorService)
+    {
+        $this->motorService = $motorService;
+    }
     public function index()
     {
-        //
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->motorService->getAll();
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
+
     }
 
     /**
@@ -36,41 +49,53 @@ class MotorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only(['mesin','tipe_suspensi','tipe_transmisi']);
+
+        $result = ['status' => 201];
+
+        try {
+            $result['data'] = $this->motorService->store($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Motor  $motor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Motor $motor)
+    public function show($id)
     {
-        //
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->motorService->getById($id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Motor  $motor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Motor $motor)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $data = $request->only(['mesin','tipe_suspensi','tipe_transmisi']);
+        $result = ['status' => 200];
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Motor  $motor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Motor $motor)
-    {
-        //
+        try {
+            $result['data'] = $this->motorService->update($data,$id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 
     /**
@@ -79,8 +104,18 @@ class MotorController extends Controller
      * @param  \App\Models\Motor  $motor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Motor $motor)
+    public function destroy($id)
     {
-        //
+        $result = ['status' => 200];
+        try {
+            $result['data'] = $this->motorService->delete($id);
+        } catch (Exception $e) {
+            $result = [
+                'status' => '500',
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return response()->json($result,$result['status']);
     }
 }

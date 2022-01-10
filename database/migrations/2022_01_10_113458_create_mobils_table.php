@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKendaraanCollection extends Migration
+class CreateMobilsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateKendaraanCollection extends Migration
      */
     public function up()
     {
-        Schema::create('Kendaraan', function (Blueprint $table) {
+        Schema::create('mobil', function (Blueprint $table) {
             $table->id();
-            $table->year('tahun');
-            $table->string('warna');
-            $table->integer('harga');
-            $table->integer('stock');
+            $table->string('mesin');
+            $table->integer('kapasitas_penumpang');
+            $table->string('tipe');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateKendaraanCollection extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Kendaraan');
+        Schema::dropIfExists('mobil');
     }
 }
