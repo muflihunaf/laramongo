@@ -13,6 +13,7 @@ class MotorController extends Controller
 
     public function __construct(MotorService $motorService)
     {
+        $this->middleware('auth:api');
         $this->motorService = $motorService;
     }
 

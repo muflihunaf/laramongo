@@ -14,6 +14,7 @@ class KendaraanController extends Controller
 
     public function __construct(KendaraanService $kendaraanService)
     {
+        $this->middleware('auth:api');
         $this->kendaraanService = $kendaraanService;
     }
 

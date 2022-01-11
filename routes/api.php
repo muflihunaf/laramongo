@@ -43,7 +43,7 @@ Route::prefix('mobil')->group(function () {
     Route::delete('/{id}', [MobilController::class, 'destroy']);
 });
 
-Route::prefix('penjualan')->group(function () {
+Route::group(['middleware' => 'api','prefix' =>'penjualan'], function () {
     Route::get('/', [PenjualanController::class, 'index']);
     Route::post('/', [PenjualanController::class, 'store']);
     Route::get('/{id}', [PenjualanController::class, 'show']);
@@ -51,8 +51,8 @@ Route::prefix('penjualan')->group(function () {
     Route::get('/jenis/{jenis}', [PenjualanController::class, 'getByJenis']);
 });
 
-Route::group(['midleware' => 'api', 'prefix' => 'auth'],function (){
-    Route::get('/data', [AuthController::class, 'getData']);
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
+Route::group(['midleware' => 'api', 'prefix' => 'auth'],function ($router){
+    Route::get('/profile', [AuthController::class, 'profile']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
 });

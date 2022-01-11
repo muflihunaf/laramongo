@@ -13,6 +13,7 @@ class MobilController extends Controller
 
     public function __construct(MobilService $mobilService)
     {
+        $this->middleware('auth:api');
         $this->mobilService = $mobilService;
     }
 
