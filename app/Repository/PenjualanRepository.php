@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Http\Resources\PenjualanCollection;
+
 use App\Models\Penjualan;
 
 class PenjualanRepository

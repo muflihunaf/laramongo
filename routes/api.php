@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\KendaraanController;
 use App\Http\Controllers\Api\MobilController;
 use App\Http\Controllers\Api\MotorController;
@@ -48,4 +49,10 @@ Route::prefix('penjualan')->group(function () {
     Route::get('/{id}', [PenjualanController::class, 'show']);
     Route::delete('/{id}', [PenjualanController::class, 'destroy']);
     Route::get('/jenis/{jenis}', [PenjualanController::class, 'getByJenis']);
+});
+
+Route::group(['midleware' => 'api', 'prefix' => 'auth'],function (){
+    Route::get('/data', [AuthController::class, 'getData']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
 });
