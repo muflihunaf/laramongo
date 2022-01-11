@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\KendaraanController;
 use App\Http\Controllers\Api\MobilController;
 use App\Http\Controllers\Api\MotorController;
+use App\Http\Controllers\Api\PenjualanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,12 @@ Route::prefix('mobil')->group(function () {
     Route::get('/{id}', [MobilController::class, 'show']);
     Route::put('/{id}', [MobilController::class, 'update']);
     Route::delete('/{id}', [MobilController::class, 'destroy']);
+});
+
+Route::prefix('penjualan')->group(function () {
+    Route::get('/', [PenjualanController::class, 'index']);
+    Route::post('/', [PenjualanController::class, 'store']);
+    Route::get('/{id}', [PenjualanController::class, 'show']);
+    Route::delete('/{id}', [PenjualanController::class, 'destroy']);
+    Route::get('/jenis/{jenis}', [PenjualanController::class, 'getByJenis']);
 });

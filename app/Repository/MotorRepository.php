@@ -19,14 +19,14 @@ class MotorRepository
 
     public function getById($id) : Object
     {
-        $dataMotor = $this->motor::findOrfail($id);
+        $dataMotor = $this->motor::findOrfail($id)->toArray();
         return $dataMotor;
     }
 
     public function store($data) : Object
     {
         $dataBaru = new $this->motor;
-        $dataBaru->kendaraan_id = $data['kendaraan'];
+        $dataBaru->kendaraan = $data['kendaraan'];
         $dataBaru->mesin = $data['mesin'];
         $dataBaru->tipe_suspensi = $data['tipe_suspensi'];
         $dataBaru->tipe_transmisi = $data['tipe_transmisi'];
@@ -43,6 +43,7 @@ class MotorRepository
         $dataUpdate->mesin = $data['mesin'];
         $dataUpdate->tipe_suspensi = $data['tipe_suspensi'];
         $dataUpdate->tipe_transmisi = $data['tipe_transmisi'];
+        $dataUpdate->stock = $data['stock'];
         $dataUpdate->save();
 
         return $dataUpdate->fresh();
@@ -53,5 +54,14 @@ class MotorRepository
         $dataDelete->delete();
 
         return $dataDelete;
+    }
+
+    public function terjual($id,$jumlah)
+    {
+        $dataUpdate = $this->motor::find($id);
+        $dataUpdate->stock = $dataUpdate->stock - $jumlah;
+        $dataUpdate->save();
+
+        return $dataUpdate->fresh();
     }
 }

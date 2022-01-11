@@ -89,4 +89,17 @@ class MobilService
 
     }
 
+    public function penjualan($id,$jumlah,$stock) : Object
+    {
+        try {
+            if($stock < $jumlah){
+                throw new InvalidArgumentException("Stock Lebih Kecil Dari Jumlah");
+            }
+            $dataMobil = $this->mobilRepository->terjual($id,$jumlah);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+        return $dataMobil;
+    }
+
 }

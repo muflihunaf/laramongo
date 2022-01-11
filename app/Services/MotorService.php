@@ -85,4 +85,16 @@ class MotorService
 
     }
 
+    public function penjualan($id,$jumlah,$stock) : Object
+    {
+        try {
+            if($stock < $jumlah){
+                throw new InvalidArgumentException("Stock Lebih Kecil Dari Jumlah");
+            }
+            $dataMotor = $this->motorRepository->terjual($id,$jumlah);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+        return $dataMotor;
+    }
 }
