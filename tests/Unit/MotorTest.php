@@ -3,12 +3,14 @@
 namespace Tests\Unit;
 
 use App\Models\Kendaraan;
+
+use App\Models\Motor;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 
-class KendaraanTest extends TestCase
+class MotorTest extends TestCase
 {
     use WithoutMiddleware;
     use DatabaseMigrations;
@@ -21,69 +23,71 @@ class KendaraanTest extends TestCase
 
      public function test_insert()
      {
+        $kendaraan = Kendaraan::factory()->create();
          $data = [
-            'tahun_keluaran' => $this->faker->year($max = 'now'),
-            'warna' => $this->faker->safeColorName(),
-            'harga' => $this->faker->numberBetween($min = 2000000, $max = 10000000),
+            "kendaraan_id" => $kendaraan->_id,
+            "mesin"=> "auto",
+            "tipe_suspensi"=> 'Plunger Backs Suspension',
+            "tipe_transmisi"=> "auto",
+            "stock"=> 50
          ];
          $response = $this->withHeaders([
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                ])->json('POST', '/api/kendaraan/',$data);
+                ])->json('POST', route('api.motor.store'),$data);
 
 
-                $response->assertStatus(201)->assertJson([
-                  'status' => 201,
-                  'data' => $data
-                ]);
+                $response->assertStatus(201);
      }
 
 
     public function test_getAll()
     {
-        $kendaraan = Kendaraan::factory()->count(50)->create();
+        $motor = Motor::factory()->count(40)->create();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-        ])->json('GET', '/api/kendaraan/');
-
+        ])->json('GET', route('api.motor.index'));
 
         $response->assertStatus(200);
     }
     public function test_update()
     {
-        $data = [
-            'tahun_keluaran' => $this->faker->year($max = 'now'),
-            'warna' => $this->faker->safeColorName(),
-            'harga' => $this->faker->numberBetween($min = 2000000, $max = 10000000),
-         ];
         $kendaraan = Kendaraan::factory()->create();
+        $motor = Motor::factory()->create();
+        $data = [
+            "kendaraan_id" => $kendaraan->_id,
+            "mesin"=> "auto",
+            "tipe_suspensi"=> 'Plunger Backs Suspension',
+            "tipe_transmisi"=> "auto",
+            "stock"=> 50
+         ];
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-        ])->json('PUT', route('api.kendaraan.update',$kendaraan->_id),$data);
+        ])->json('PUT', route('api.motor.update',$motor->_id),$data);
 
 
         $response->assertStatus(200);
     }
     public function test_show()
     {
-        $kendaraan = Kendaraan::factory()->create();
+        $motor = Motor::factory()->create();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-        ])->json('GET', route('api.kendaraan.show',$kendaraan->_id));
+        ])->json('GET', route('api.motor.show',$motor->_id));
 
 
         $response->assertStatus(200);
     }
     public function test_delete()
     {
-        $kendaraan = Kendaraan::factory()->create();
+        $motor = Motor::factory()->create();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-        ])->json('DELETE', route('api.kendaraan.destroy',$kendaraan->_id));
+        ])->json('DELETE', route('api.motor.destroy',$motor->_id));
 
 
         $response->assertStatus(200);
