@@ -28,11 +28,8 @@ class MobilService
     {
         try {
             $dataMobil = $this->mobilRepository->getById($id);
-            if($dataMobil->isEmpty()){
-                throw new InvalidArgumentException("Error Data Kendaraan Not Found");
-            }
         } catch (Exception $e) {
-            throw new InvalidArgumentException($e->getMessage());
+            throw new InvalidArgumentException("Error Data Kendaraan Not Found");
 
         }
         return $dataMobil;
@@ -87,7 +84,11 @@ class MobilService
     public function delete($id) : Object
     {
 
-        $result = $this->mobilRepository->delete($id);
+        try {
+            $result = $this->mobilRepository->delete($id);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException("Error Data Not Found");
+        }
         return $result;
 
     }

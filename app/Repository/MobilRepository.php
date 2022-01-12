@@ -21,8 +21,8 @@ class MobilRepository
 
     public function getById($id) : Object
     {
-        $dataMobil = $this->mobil::where('_id',$id)->get();
-        return MobilCollection::collection($dataMobil);
+        $dataMobil = $this->mobil::findOrFail($id);
+        return $dataMobil;
     }
 
     public function store($data) : Object
@@ -52,7 +52,7 @@ class MobilRepository
     }
     public function delete($id) : Object
     {
-        $dataDelete = $this->mobil::find($id);
+        $dataDelete = $this->mobil::findOrfail($id);
         $dataDelete->delete();
 
         return $dataDelete;
@@ -60,7 +60,7 @@ class MobilRepository
 
     public function terjual($id,$jumlah)
     {
-        $dataUpdate = $this->mobil::find($id);
+        $dataUpdate = $this->mobil::findOrfail($id);
         $dataUpdate->stock = $dataUpdate->stock - $jumlah;
         $dataUpdate->save();
 

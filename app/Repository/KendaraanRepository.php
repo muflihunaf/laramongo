@@ -47,7 +47,7 @@ class KendaraanRepository
     }
     public function delete($id) : Object
     {
-        $dataDelete = $this->kendaraan::find($id);
+        $dataDelete = $this->kendaraan::findOrfail($id);
         $dataDelete->delete();
         return $dataDelete;
     }

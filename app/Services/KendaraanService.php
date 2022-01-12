@@ -77,7 +77,11 @@ class KendaraanService
     public function delete($id) : Object
     {
 
-        $result = $this->kendaraanRepository->delete($id);
+        try {
+            $result = $this->kendaraanRepository->delete($id);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException("Error Data Not Found");
+        }
         return $result;
 
     }

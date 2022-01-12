@@ -29,11 +29,8 @@ class MotorService
     {
         try {
             $dataMotor = $this->motorRepository->getById($id);
-                if($dataMotor->isEmpty()){
-                    throw new InvalidArgumentException("Error Data Kendaraan Not Found");
-                }
         } catch (Exception $e) {
-            throw new InvalidArgumentException($e->getMessage());
+            throw new InvalidArgumentException("Error Data Kendaraan Not Found");
         }
         return $dataMotor;
     }
@@ -83,7 +80,11 @@ class MotorService
     public function delete($id) : Object
     {
 
-        $result = $this->motorRepository->delete($id);
+        try {
+            $result = $this->motorRepository->delete($id);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException("Error Data Not Found");
+        }
         return $result;
 
     }

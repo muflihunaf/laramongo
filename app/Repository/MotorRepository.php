@@ -20,8 +20,8 @@ class MotorRepository
 
     public function getById($id) : Object
     {
-        $dataMotor = $this->motor::where('_id',$id)->get();
-        return MotorCollection::collection($dataMotor);
+        $dataMotor = $this->motor::findOrFail($id);
+        return $dataMotor;
     }
 
     public function store($data) : Object
@@ -51,7 +51,7 @@ class MotorRepository
     }
     public function delete($id) : Object
     {
-        $dataDelete = $this->motor::find($id);
+        $dataDelete = $this->motor::findOrfail($id);
         $dataDelete->delete();
 
         return $dataDelete;
@@ -59,7 +59,7 @@ class MotorRepository
 
     public function terjual($id,$jumlah)
     {
-        $dataUpdate = $this->motor::find($id);
+        $dataUpdate = $this->motor::findOrfail($id);
         $dataUpdate->stock = $dataUpdate->stock - $jumlah;
         $dataUpdate->save();
 
