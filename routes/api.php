@@ -57,7 +57,7 @@ Route::group(['middleware' => 'api','prefix' =>'penjualan'], function () {
 
 Route::group(['midleware' => 'api', 'prefix' => 'auth'],function (){
     Route::get('/profile', [AuthController::class, 'profile']);
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/register', [AuthController::class, 'register'])->name('api.register');
+    Route::post('/login', [AuthController::class, 'login'])->name('api.login');;
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');;
 });
