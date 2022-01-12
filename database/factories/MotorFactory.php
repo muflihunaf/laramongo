@@ -16,7 +16,7 @@ class MotorFactory extends Factory
     {
         $kendaraan = Kendaraan::factory()->create();
         return [
-            'kendaraan_id' => $kendaraan->_id,
+            'kendaraan' => $kendaraan->toArray(),
             'mesin' => $this->faker->randomElement($array = ['auto','manual','semi-auto']),
             'tipe_suspensi' => $this->faker->word,
             'tipe' => $this->faker->randomElement($array = ['auto','manual','semi-auto']),

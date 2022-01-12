@@ -28,7 +28,7 @@ Route::group(['middleware' => 'api','prefix' =>'kendaraan'], function () {
     Route::post('/', [KendaraanController::class, 'store'])->name('api.kendaraan.store');
     Route::get('/{id}', [KendaraanController::class, 'show'])->name('api.kendaraan.show');
     Route::put('/{id}', [KendaraanController::class, 'update'])->name('api.kendaraan.update');
-    Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('api.kendaraan.delete');
+    Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('api.kendaraan.destroy');
 });
 
 Route::group(['middleware' => 'api','prefix' =>'motor'], function () {

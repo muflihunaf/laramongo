@@ -16,11 +16,11 @@ class MobilFactory extends Factory
     {
         $kendaraan = Kendaraan::factory()->create();
         return [
-            'kendaraan_id' => $kendaraan->_id,
             'mesin' => $this->faker->randomElement($array = ['auto','manual','semi-auto']),
             'kapasitas_penumpang' => $this->faker->numberBetween($min = 1, $max = 10),
             'tipe' => $this->faker->randomElement($array = ['auto','manual','semi-auto']),
             'stock' => $this->faker->numberBetween($min = 1, $max = 99),
+            'kendaraan' => $kendaraan->toArray()
         ];
     }
 }
