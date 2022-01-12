@@ -28,8 +28,11 @@ class MobilService
     {
         try {
             $dataMobil = $this->mobilRepository->getById($id);
+            if($dataMobil->isEmpty()){
+                throw new InvalidArgumentException("Error Data Kendaraan Not Found");
+            }
         } catch (Exception $e) {
-            throw new InvalidArgumentException("Error Data Mobil Not Found");
+            throw new InvalidArgumentException($e->getMessage());
 
         }
         return $dataMobil;

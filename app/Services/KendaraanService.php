@@ -28,9 +28,11 @@ class KendaraanService
     {
         try {
             $kendaraan = $this->kendaraanRepository->getById($id);
+            if($kendaraan->isEmpty()){
+                throw new InvalidArgumentException("Error Data Kendaraan Not Found");
+            }
         } catch (Exception $e) {
-            throw new InvalidArgumentException("Error Data Kendaraan Not Found");
-
+            throw new InvalidArgumentException($e->getMessage());
         }
         return $kendaraan;
     }

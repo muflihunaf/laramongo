@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Http\Resources\KendaraanCollection;
 use App\Models\Kendaraan;
 
 class KendaraanRepository
@@ -11,16 +12,17 @@ class KendaraanRepository
     {
         $this->kendaraan = $kendaraan;
     }
-    public function getAll()
+    public function getAll() : Object
     {
         $kendaraan = $this->kendaraan->get();
-        return $kendaraan;
+        return KendaraanCollection::collection($kendaraan);
     }
 
     public function getById($id)
     {
-        $kendaraan = $this->kendaraan::findOrfail($id)->toArray();
-        return $kendaraan;
+        $kendaraan = $this->kendaraan::where('_id',$id)->get();
+
+        return KendaraanCollection::collection($kendaraan);
     }
 
     public function store($data) : Object

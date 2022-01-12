@@ -19,7 +19,7 @@ class MotorRepository
 
     public function getById($id) : Object
     {
-        $dataMotor = $this->motor::findOrfail($id)->toArray();
+        $dataMotor = $this->motor::where('_id',$id)->get();
         return $dataMotor;
     }
 

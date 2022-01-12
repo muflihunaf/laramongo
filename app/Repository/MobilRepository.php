@@ -20,7 +20,7 @@ class MobilRepository
 
     public function getById($id) : Object
     {
-        $dataMobil = $this->mobil::findOrfail($id)->first();
+        $dataMobil = $this->mobil::where('_id',$id)->get();
         return $dataMobil;
     }
 

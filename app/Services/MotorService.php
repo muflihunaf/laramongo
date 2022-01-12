@@ -29,8 +29,11 @@ class MotorService
     {
         try {
             $dataMotor = $this->motorRepository->getById($id);
+                if($dataMotor->isEmpty()){
+                    throw new InvalidArgumentException("Error Data Kendaraan Not Found");
+                }
         } catch (Exception $e) {
-            throw new InvalidArgumentException("Error Data Not Found");
+            throw new InvalidArgumentException($e->getMessage());
         }
         return $dataMotor;
     }

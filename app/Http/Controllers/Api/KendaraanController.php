@@ -60,7 +60,7 @@ class KendaraanController extends Controller
      */
     public function show($id)
     {
-        $result = ['status' => 200];
+        $result = ['status' => 200,'message' => 'Success'];
         try {
             $result['data'] = $this->kendaraanService->getById($id);
         } catch (Exception $e) {

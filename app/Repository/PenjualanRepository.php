@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-
+use App\Http\Resources\PenjualanCollection;
 use App\Models\Penjualan;
 
 class PenjualanRepository
@@ -15,19 +15,21 @@ class PenjualanRepository
     public function getAll() : Object
     {
         $dataPenjualan = $this->penjualan->get();
-        return $dataPenjualan;
+        return PenjualanCollection::collection($dataPenjualan);
     }
 
     public function getById($id) : Object
     {
-        $dataPenjualan = $this->penjualan::findOrfail($id);
-        return $dataPenjualan;
+        $dataPenjualan = $this->penjualan::where('_id',$id)->get();
+
+        return PenjualanCollection::collection($dataPenjualan);
     }
 
     public function getByJenis($jenis) : Object
     {
         $dataPenjualan = $this->penjualan::where('jenis_kendaraan',$jenis)->get();
-        return $dataPenjualan;
+
+        return PenjualanCollection::collection($dataPenjualan);
     }
 
     public function store($data) : Object
@@ -48,7 +50,7 @@ class PenjualanRepository
 
     public function delete($id) : Object
     {
-        $dataDelete = $this->penjualan::find($id);
+        $dataDelete = $this->penjualan::findOrfail($id);
         $dataDelete->delete();
 
         return $dataDelete;

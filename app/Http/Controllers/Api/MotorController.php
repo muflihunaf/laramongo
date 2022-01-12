@@ -70,7 +70,7 @@ class MotorController extends Controller
 
     public function update(Request $request, $id) : Object
     {
-        $data = $request->only(['mesin','tipe_suspensi','tipe_transmisi']);
+        $data = $request->only(['kendaraan_id','mesin','tipe_suspensi','tipe_transmisi','stock']);
         $result = ['status' => 200];
 
         try {

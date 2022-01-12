@@ -31,8 +31,11 @@ class PenjualanService
     {
         try {
             $dataMotor = $this->penjualanRepository->getById($id);
+            if($dataMotor->isEmpty()){
+                throw new InvalidArgumentException("Error Data Kendaraan Not Found");
+                }
         } catch (Exception $e) {
-            throw new InvalidArgumentException("Error Data Not Found");
+            throw new InvalidArgumentException($e->getMessage());
         }
         return $dataMotor;
     }
@@ -78,8 +81,12 @@ class PenjualanService
 
     public function delete($id) : Object
     {
-        $result = $this->penjualanRepository->delete($id);
-        return $result;
+        try {
+            $dataMotor = $this->penjualanRepository->delete($id);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException("Error Data Not Found");
+        }
+        return $dataMotor;
 
     }
 
