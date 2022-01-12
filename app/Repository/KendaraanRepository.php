@@ -21,8 +21,7 @@ class KendaraanRepository
     public function getById($id)
     {
         $kendaraan = $this->kendaraan::where('_id',$id)->get();
-
-        return KendaraanCollection::collection($kendaraan);
+        return $kendaraan;
     }
 
     public function store($data) : Object

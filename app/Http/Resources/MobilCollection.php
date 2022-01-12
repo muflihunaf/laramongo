@@ -4,7 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MotorCollection extends JsonResource
+
+class MobilCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,8 +18,8 @@ class MotorCollection extends JsonResource
         return [
             'id' => $this->_id,
             "mesin" => $this->mesin,
-            "tipe_supensi" => $this->tipe_suspensi,
-            "tipe_transmisi" => $this->tipe_transmisi,
+            "kapasitas_penumpang" => $this->kapasitas_penumpang,
+            "tipe" => $this->tipe,
             "stock" => $this->stock,
             "kendaraan" => [
                 "id" => $this->kendaraan['_id'],

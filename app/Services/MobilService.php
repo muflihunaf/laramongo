@@ -56,7 +56,7 @@ class MobilService
 
 
         $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
-        $data['kendaraan'] = $kendaraan;
+        $data['kendaraan'] = $kendaraan->toArray();
 
         $result = $this->mobilRepository->store($data);
         return $result;
@@ -78,7 +78,7 @@ class MobilService
 
         }
         $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
-        $data['kendaraan'] = $kendaraan;
+        $data['kendaraan'] = $kendaraan->toArray();
         $result = $this->mobilRepository->update($data,$id);
         return $result;
 

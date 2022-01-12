@@ -53,7 +53,7 @@ class MotorService
         }
 
         $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
-        $data['kendaraan'] = $kendaraan;
+        $data['kendaraan'] = $kendaraan->toArray();
         $result = $this->motorRepository->store($data);
         return $result;
 
@@ -74,7 +74,7 @@ class MotorService
 
         }
         $kendaraan = $this->kendaraanService->getById($data['kendaraan_id']);
-        $data['kendaraan'] = $kendaraan;
+        $data['kendaraan'] = $kendaraan->toArray();
         $result = $this->motorRepository->update($data,$id);
         return $result;
 

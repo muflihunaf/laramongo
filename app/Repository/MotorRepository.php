@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Http\Resources\MotorCollection;
 use App\Models\Motor;
 
 class MotorRepository
@@ -14,19 +15,19 @@ class MotorRepository
     public function getAll() : Object
     {
         $dataMotor = $this->motor->get();
-        return $dataMotor;
+        return MotorCollection::collection($dataMotor);
     }
 
     public function getById($id) : Object
     {
         $dataMotor = $this->motor::where('_id',$id)->get();
-        return $dataMotor;
+        return MotorCollection::collection($dataMotor);
     }
 
     public function store($data) : Object
     {
         $dataBaru = new $this->motor;
-        $dataBaru->kendaraan = $data['kendaraan'];
+        $dataBaru->kendaraan = $data['kendaraan'][0];
         $dataBaru->mesin = $data['mesin'];
         $dataBaru->tipe_suspensi = $data['tipe_suspensi'];
         $dataBaru->tipe_transmisi = $data['tipe_transmisi'];
@@ -39,7 +40,7 @@ class MotorRepository
     public function update($data,$id) : Object
     {
         $dataUpdate = $this->motor::find($id);
-        $dataUpdate->kendaraan = $data['kendaraan'];
+        $dataUpdate->kendaraan = $data['kendaraan'][0];
         $dataUpdate->mesin = $data['mesin'];
         $dataUpdate->tipe_suspensi = $data['tipe_suspensi'];
         $dataUpdate->tipe_transmisi = $data['tipe_transmisi'];
