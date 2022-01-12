@@ -24,35 +24,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'api','prefix' =>'kendaraan'], function () {
-    Route::get('/', [KendaraanController::class, 'index']);
-    Route::post('/', [KendaraanController::class, 'store']);
-    Route::get('/{id}', [KendaraanController::class, 'show']);
-    Route::put('/{id}', [KendaraanController::class, 'update']);
-    Route::delete('/{id}', [KendaraanController::class, 'destroy']);
+    Route::get('/', [KendaraanController::class, 'index'])->name('api.kendaraan.index');
+    Route::post('/', [KendaraanController::class, 'store'])->name('api.kendaraan.store');
+    Route::get('/{id}', [KendaraanController::class, 'show'])->name('api.kendaraan.show');
+    Route::put('/{id}', [KendaraanController::class, 'update'])->name('api.kendaraan.update');
+    Route::delete('/{id}', [KendaraanController::class, 'destroy'])->name('api.kendaraan.delete');
 });
 
 Route::group(['middleware' => 'api','prefix' =>'motor'], function () {
-    Route::get('/', [MotorController::class, 'index']);
-    Route::post('/', [MotorController::class, 'store']);
-    Route::get('/{id}', [MotorController::class, 'show']);
-    Route::put('/{id}', [MotorController::class, 'update']);
-    Route::delete('/{id}', [MotorController::class, 'destroy']);
+    Route::get('/', [MotorController::class, 'index'])->name('api.motor.index');
+    Route::post('/', [MotorController::class, 'store'])->name('api.motor.store');
+    Route::get('/{id}', [MotorController::class, 'show'])->name('api.motor.show');
+    Route::put('/{id}', [MotorController::class, 'update'])->name('api.motor.update');
+    Route::delete('/{id}', [MotorController::class, 'destroy'])->name('api.motor.destroy');
 });
 
 Route::group(['middleware' => 'api','prefix' =>'mobil'], function () {
-    Route::get('/', [MobilController::class, 'index']);
-    Route::post('/', [MobilController::class, 'store']);
-    Route::get('/{id}', [MobilController::class, 'show']);
-    Route::put('/{id}', [MobilController::class, 'update']);
-    Route::delete('/{id}', [MobilController::class, 'destroy']);
+    Route::get('/', [MobilController::class, 'index'])->name('api.mobil.index');
+    Route::post('/', [MobilController::class, 'store'])->name('api.mobil.store');
+    Route::get('/{id}', [MobilController::class, 'show'])->name('api.mobil.show');
+    Route::put('/{id}', [MobilController::class, 'update'])->name('api.mobil.update');
+    Route::delete('/{id}', [MobilController::class, 'destroy'])->name('api.mobil.destroy');
 });
 
 Route::group(['middleware' => 'api','prefix' =>'penjualan'], function () {
-    Route::get('/', [PenjualanController::class, 'index']);
-    Route::post('/', [PenjualanController::class, 'store']);
-    Route::get('/{id}', [PenjualanController::class, 'show']);
-    Route::delete('/{id}', [PenjualanController::class, 'destroy']);
-    Route::get('/jenis/{jenis}', [PenjualanController::class, 'getByJenis']);
+    Route::get('/', [PenjualanController::class, 'index'])->name('api.penjualan.index');
+    Route::post('/', [PenjualanController::class, 'store'])->name('api.penjualan.store');
+    Route::get('/{id}', [PenjualanController::class, 'show'])->name('api.penjualan.show');
+    Route::delete('/{id}', [PenjualanController::class, 'destroy'])->name('api.penjualan.destroy');
+    Route::get('/jenis/{jenis}', [PenjualanController::class, 'getByJenis'])->name('api.penjualan.jenis');
 });
 
 Route::group(['midleware' => 'api', 'prefix' => 'auth'],function (){
